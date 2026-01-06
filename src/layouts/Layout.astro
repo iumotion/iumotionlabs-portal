@@ -4,14 +4,17 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  keywords?: string;
 }
 
 const {
   title,
-  description = "IumotionLabs - Laboratorio de innovación donde las ideas se transforman en productos digitales de alto impacto. Exploramos, construimos y lanzamos."
+  description = "Laboratorio de innovación digital que transforma ideas en productos de alto impacto. Desarrollamos apps móviles, plataformas web y ecosistemas tecnológicos con Flutter, Angular, Go y AWS.",
+  keywords = "laboratorio innovación digital, desarrollo apps móviles, desarrollo web, Flutter, Angular, Go, AWS, startup tecnología, productos digitales, fintech, gestión familiar, Bogotá Colombia"
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL('/og-image.jpg', Astro.site);
 ---
 
 <!DOCTYPE html>
@@ -25,9 +28,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
     <meta name="author" content="IumotionLabs" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
+
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="CO-DC" />
+    <meta name="geo.placename" content="Bogotá" />
+    <meta name="geo.position" content="4.7110;-74.0721" />
+    <meta name="ICBM" content="4.7110, -74.0721" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -38,20 +49,32 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/og-image.png', Astro.site)} />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="IumotionLabs - Laboratorio de Innovación Digital" />
+    <meta property="og:locale" content="es_CO" />
     <meta property="og:site_name" content="IumotionLabs" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@iumotionlabs" />
+    <meta name="twitter:creator" content="@iumotionlabs" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/og-image.png', Astro.site)} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content="IumotionLabs - Laboratorio de Innovación Digital" />
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#6366f1" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+
+    <!-- DNS Prefetch & Preconnect for external resources -->
+    <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="dns-prefetch" href="https://linkedin.com" />
+    <link rel="dns-prefetch" href="https://mythos.iumotionlabs.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 
     <!-- Preload Critical Assets -->
     <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
@@ -59,21 +82,115 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "IumotionLabs",
-      "url": "https://iumotionlabs.com",
-      "logo": "https://iumotionlabs.com/logo.svg",
-      "description": description,
-      "foundingDate": "2025",
-      "sameAs": [
-        "https://github.com/iumotionlabs",
-        "https://linkedin.com/company/iumotionlabs"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "hello@iumotionlabs.com",
-        "contactType": "customer service"
-      }
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://iumotionlabs.com/#organization",
+          "name": "IumotionLabs",
+          "alternateName": "Iumotion Labs",
+          "url": "https://iumotionlabs.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://iumotionlabs.com/logo.svg",
+            "width": 512,
+            "height": 512
+          },
+          "image": "https://iumotionlabs.com/og-image.jpg",
+          "description": description,
+          "foundingDate": "2025",
+          "founder": {
+            "@type": "Person",
+            "name": "IumotionLabs Team"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bogotá",
+            "addressCountry": "CO"
+          },
+          "sameAs": [
+            "https://github.com/iumotion",
+            "https://linkedin.com/company/iumotionlabs"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@iumotionlabs.com",
+            "contactType": "customer service",
+            "availableLanguage": ["Spanish", "English"]
+          },
+          "knowsAbout": [
+            "Desarrollo de aplicaciones móviles",
+            "Flutter",
+            "Angular",
+            "Go",
+            "AWS",
+            "Inteligencia Artificial",
+            "Fintech",
+            "Productos digitales"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://iumotionlabs.com/#website",
+          "url": "https://iumotionlabs.com",
+          "name": "IumotionLabs",
+          "description": description,
+          "publisher": {
+            "@id": "https://iumotionlabs.com/#organization"
+          },
+          "inLanguage": "es-CO"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://iumotionlabs.com/#webpage",
+          "url": "https://iumotionlabs.com",
+          "name": title,
+          "description": description,
+          "isPartOf": {
+            "@id": "https://iumotionlabs.com/#website"
+          },
+          "about": {
+            "@id": "https://iumotionlabs.com/#organization"
+          },
+          "inLanguage": "es-CO",
+          "datePublished": "2025-01-01",
+          "dateModified": new Date().toISOString().split('T')[0]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "SAVVY",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "iOS, Android",
+          "description": "Tu copiloto financiero personal. Toma el control de tus finanzas con inteligencia y privacidad.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://iumotionlabs.com/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "MYTHOS",
+          "applicationCategory": "BusinessApplication",
+          "url": "https://mythos.iumotionlabs.com",
+          "description": "Plataforma de construcción narrativa aplicada a innovación. Transforma ideas en proyectos ejecutables.",
+          "creator": {
+            "@id": "https://iumotionlabs.com/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "FAMILY CARE",
+          "applicationCategory": "HealthApplication",
+          "operatingSystem": "iOS, Android",
+          "description": "Desde bebés hasta abuelos. Centraliza salud, rutinas y coordinación familiar.",
+          "creator": {
+            "@id": "https://iumotionlabs.com/#organization"
+          }
+        }
+      ]
     })} />
   </head>
   <body class="min-h-screen flex flex-col">

@@ -1,6 +1,28 @@
 # https://www.robotstxt.org/robotstxt.html
+
+# Allow all crawlers
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://iumotionlabs.com/sitemap.xml
+# Specific directives for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block common bot attacks
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemaps (Astro generates sitemap-index.xml)
+Sitemap: https://iumotionlabs.com/sitemap-index.xml
+
+# Host directive (for Yandex)
+Host: https://iumotionlabs.com

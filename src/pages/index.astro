@@ -5,9 +5,14 @@ import Hero from '../components/Hero.astro';
 import Portfolio from '../components/Portfolio.astro';
 import Enfoque from '../components/Enfoque.astro';
 import Footer from '../components/Footer.astro';
+
+// SEO optimized title (50-60 chars) and description (150-160 chars)
+const seoTitle = "IumotionLabs | Desarrollo de Apps y Productos Digitales - Bogotá";
+const seoDescription = "Transformamos ideas en productos digitales de alto impacto. Apps móviles con Flutter, plataformas web con Angular y Go. SAVVY, MYTHOS y FAMILY CARE.";
+const seoKeywords = "desarrollo apps móviles Bogotá, desarrollo web Colombia, Flutter developer, Angular developer, Go developer, startup tecnología, laboratorio innovación, fintech Colombia, productos digitales";
 ---
 
-<Layout title="IumotionLabs - Laboratorio de Innovación Digital">
+<Layout title={seoTitle} description={seoDescription} keywords={seoKeywords}>
   <Header />
   <main id="main-content">
     <Hero />
