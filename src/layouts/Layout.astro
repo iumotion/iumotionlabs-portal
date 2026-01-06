@@ -40,9 +40,20 @@ const ogImageURL = new URL('/og-image.jpg', Astro.site);
     <meta name="geo.position" content="4.7110;-74.0721" />
     <meta name="ICBM" content="4.7110, -74.0721" />
 
-    <!-- Favicon -->
+    <!-- Favicons - Complete set for all browsers and Google -->
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon-48x48.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#6366f1" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
