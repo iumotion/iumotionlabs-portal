@@ -97,20 +97,22 @@ body {
   border-radius: var(--radius-sm);
 }
 
-/* Skip Link */
+/* Skip Link - Hidden off-screen until focused */
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: 0;
   left: 0;
   background: var(--color-accent-start);
   color: white;
   padding: 0.5rem 1rem;
   z-index: 100;
-  transition: top var(--transition-fast);
+  transform: translateY(-100%);
+  transition: transform var(--transition-fast);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 }
 
 .skip-link:focus {
-  top: 0;
+  transform: translateY(0);
 }
 
 /* ===== Selection ===== */
