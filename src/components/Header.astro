@@ -1,0 +1,131 @@
+---
+const navItems = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#portafolio', label: 'Portafolio' },
+  { href: '#enfoque', label: 'Enfoque' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[var(--color-surface-primary)]/80 backdrop-blur-lg border-b border-[var(--color-border-subtle)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="flex items-center justify-between h-16" aria-label="Navegación principal">
+      <!-- Logo -->
+      <a href="#inicio" class="flex items-center gap-2 group" aria-label="IumotionLabs - Inicio">
+        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">iL</span>
+        </div>
+        <span class="font-semibold text-lg text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-start)] transition-colors">
+          IumotionLabs
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <ul class="hidden md:flex items-center gap-8" role="list">
+        {navItems.map(item => (
+          <li>
+            <a
+              href={item.href}
+              class="text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[var(--color-accent-start)] hover:after:w-full after:transition-all"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Theme Toggle & Mobile Menu -->
+      <div class="flex items-center gap-4">
+        <!-- Theme Toggle -->
+        <button
+          type="button"
+          onclick="toggleTheme()"
+          class="p-2 rounded-lg bg-[var(--color-surface-secondary)] hover:bg-[var(--color-surface-tertiary)] transition-colors"
+          aria-label="Cambiar tema"
+        >
+          <!-- Sun icon (shown in dark mode) -->
+          <svg class="w-5 h-5 hidden dark:block text-[var(--color-text-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg class="w-5 h-5 block dark:hidden text-[var(--color-text-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button
+          type="button"
+          class="md:hidden p-2 rounded-lg bg-[var(--color-surface-secondary)] hover:bg-[var(--color-surface-tertiary)] transition-colors"
+          aria-label="Abrir menú de navegación"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          id="mobile-menu-button"
+        >
+          <svg class="w-5 h-5 text-[var(--color-text-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-[var(--color-surface-primary)] border-t border-[var(--color-border-subtle)]"
+    role="navigation"
+    aria-label="Menú móvil"
+  >
+    <ul class="px-4 py-4 space-y-2" role="list">
+      {navItems.map(item => (
+        <li>
+          <a
+            href={item.href}
+            class="block py-2 px-4 rounded-lg text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuButton?.addEventListener('click', () => {
+    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+    menuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking on a link
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuButton?.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.add('hidden');
+    });
+  });
+
+  // Theme toggle icon visibility based on data-theme attribute
+  const updateThemeIcons = () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('.dark\\:block').forEach(el => {
+      (el as HTMLElement).style.display = isDark ? 'block' : 'none';
+    });
+    document.querySelectorAll('.dark\\:hidden').forEach(el => {
+      (el as HTMLElement).style.display = isDark ? 'none' : 'block';
+    });
+  };
+
+  // Initial update
+  updateThemeIcons();
+
+  // Watch for theme changes
+  const observer = new MutationObserver(updateThemeIcons);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>
